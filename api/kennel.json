@@ -1,0 +1,31 @@
+{
+  "employees": [
+    {
+      "id": 2,
+      "name": "Jordan Nelson"
+    }
+  ],
+  "animals": [
+    {
+      "id": 3,
+      "name": "Angus"
+    },
+    {
+      "id": 4,
+      "name": "Henley"
+    }
+  ],
+  "locations": [
+    {
+      "id": 1,
+      "name": "Nashville North",
+      "address": "500 Circle Way"
+    }
+  ],
+  "students": [
+    {
+      "id": 3,
+      "name": "Jimmy mets"
+    }
+  ]
+}
