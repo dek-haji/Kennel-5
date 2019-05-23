@@ -12,7 +12,7 @@ class EmployeeList extends Component {
             <>
              <div className="employeeButton">
                     <button type="button"
-                            className="btn btn-success"
+                            className="btn btn-info"
                             onClick={() => {
                                 this.props.history.push("/employees/new")}
                             }>

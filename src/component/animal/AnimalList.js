@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import animaal from "./animaal.png"
 import "./Animal.css"
+import "bootstrap/dist/css/bootstrap.min.css"
 
 class AnimalList extends Component {
     handleClick = (event)=> {
@@ -15,7 +16,7 @@ class AnimalList extends Component {
             <>
                  <div className="animalButton">
                     <button type="button"
-                            className="btn btn-success"
+                            className="btn btn-info"
                             onClick={() => {
                                 this.props.history.push("/animals/new")}
                             }>

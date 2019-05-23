@@ -1,4 +1,4 @@
-import { Route } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 import React, { Component } from "react"
 import { withRouter } from 'react-router'
 import AnimalList from "./animal/AnimalList"
@@ -15,9 +15,12 @@ import EmployeeForm from './employee/EmployeeForm';
 import EmployeeDetails from "./employee/EmployeeDetails"
 import LocationForm from './location/LocationForm';
 import AnimalEditForm from "./animal/AnimalEditForm"
+import Login from './authentication/Login'
 
 
 class ApplicationViews extends Component {
+ // Check if credentials are in local storage
+ isAuthenticated = () => sessionStorage.getItem("credentials") !== null
 
     state = {
         locations: [],
@@ -129,6 +132,8 @@ class ApplicationViews extends Component {
     render() {
         return (
             <React.Fragment>
+                <Route path="/login" component={Login} />
+
                 {/* location list card route path */}
                 <Route exact path="/" render={(props) => {
                     return <LocationList {...props} //??
@@ -184,13 +189,15 @@ class ApplicationViews extends Component {
                         return <AnimalEditForm {...props} employees={this.state.employees} updateAnimal={this.updateAnimal}/>
                     }} />
 
-                {/*employee list card route  */}
-
-                <Route exact path="/employees" render={(props) => {
-                    return <EmployeeList {...props}
-                                        employees={this.state.employees}
-                                        deleteEmployees={this.deleteEmployees}/>
-                }} />
+                {/* and checks if the user loged in and takes u to employee list card route path */}
+                     <Route exact path="/employees" render={props => {
+                        if (this.isAuthenticated()) {
+                            return <EmployeeList deleteEmployee={this.deleteEmployee}
+                                                employees={this.state.employees} />
+                        } else {
+                            return <Redirect to="/login" />
+                        }
+                    }} />
 
                 <Route path="/employees/new" render={(props) => {
                     return <EmployeeForm {...props}
