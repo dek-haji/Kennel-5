@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import local from "./local.png"
+import {Link} from 'react-router-dom'
 class LocationList extends Component {
     render() {
         return (
@@ -21,7 +22,8 @@ class LocationList extends Component {
                         <p>{location.name}</p>
                         <img src={local} alt = "" className="icon--location" />
                         <p>{location.address}</p>
-                    <button onClick={()=> {this.props.deleteLocation(location.id)}}>Delete</button>
+                        <button onClick={() => { this.props.deleteLocation(location.id) }}>Delete</button>
+                        <Link className="nav-link" to={`/locations/${location.id}`}>Details</Link>
                 </div>
                 )
            }

@@ -38,19 +38,23 @@ export default class Login extends Component {
             <form onSubmit={this.handleLogin}>
                 <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
                 <label htmlFor="inputEmail">
-                    Email address
+                    Email
                 </label>
                 <input onChange={this.handleFieldChange} type="email"
                        id="email"
                        placeholder="Email address"
-                       required="" autoFocus="" />
+                    required="" autoFocus="" />
                 <label htmlFor="inputPassword">
                     Password
                 </label>
                 <input onChange={this.handleFieldChange} type="password"
                        id="password"
                        placeholder="Password"
-                       required="" />
+                    required="" />
+                <br/>
+                <label>Remember me</label>
+                <input type="checkbox"></input>
+                <br />
                 <button type="submit">
                     Sign in
                 </button>

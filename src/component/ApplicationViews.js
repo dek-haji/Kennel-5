@@ -16,6 +16,7 @@ import EmployeeDetails from "./employee/EmployeeDetails"
 import LocationForm from './location/LocationForm';
 import AnimalEditForm from "./animal/AnimalEditForm"
 import Login from './authentication/Login'
+import LocationDetails from "./location/LocationDetails"
 
 
 class ApplicationViews extends Component {
@@ -144,7 +145,24 @@ class ApplicationViews extends Component {
                  <Route path="/new" render={(props) => {
                     return <LocationForm {...props}
                                         addLocation={this.addLocation} />
-                    }} />
+                }} />
+                {/* location details */}
+                <Route path="/locations/:locationId(\d+)" render={(props) => {
+                    // Find the animal with the id of the route parameter
+                    let location = this.state.locations.find(location =>
+                        location.id === parseInt(props.match.params.locationId)
+                    )
+
+                    // If the location wasn't found, create a default one
+                    if (!location) {
+                        location = { id: 404, name: "404",}
+                    }
+
+                    return <LocationDetails location={location}
+                        deleteLocation={this.deleteLocation} />
+                }} />
+
+
                 <Route exact path="/animals" render={(props) => {
                     return <AnimalList {...props}
                                         animals={this.state.animals}
@@ -156,7 +174,7 @@ class ApplicationViews extends Component {
                     return <AnimalForm {...props}
                        addAnimal={this.addAnimal}
                        employees={this.state.employees} />
-}} />
+                }} />
                 <Route path="/animals/:animalId(\d+)" render={(props) => {
                     // Find the animal with the id of the route parameter
                     let animal = this.state.animals.find(animal =>
@@ -172,7 +190,7 @@ class ApplicationViews extends Component {
                         deleteAnimal={this.deleteAnimal} />
                 }} />
 
-                {/* edit animal route path */}
+
                 <Route
                     exact path="/animals/:animalId(\d+)"
                     render={props => {
