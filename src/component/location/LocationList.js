@@ -3,6 +3,16 @@ import local from "./local.png"
 class LocationList extends Component {
     render() {
         return (
+            <>
+            <div className="locationButton">
+            <button type="button"
+                    className="btn btn-success"
+                    onClick={() => {
+                        this.props.history.push("/new")}
+                    }>
+                Register New Locations
+            </button>
+        </div>
             <section className="locations">
                     <h1>Locations</h1>
                 {
@@ -15,7 +25,8 @@ class LocationList extends Component {
                 </div>
                 )
            }
-            </section>
+                </section>
+                </>
         );
     }
 }

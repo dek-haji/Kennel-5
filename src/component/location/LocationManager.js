@@ -14,5 +14,14 @@ export default {
                 'Content-Type': 'application/json',
             },
         }).then(e => e.json())
-    }
-}
+    },
+    post(newLocation) {
+                return fetch(`${remoteURL}/locations`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(newLocation)
+                }).then(data => data.json())
+            }
+        }

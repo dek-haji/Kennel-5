@@ -1,5 +1,6 @@
-import { Route } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 import React, { Component } from "react"
+import { withRouter } from 'react-router'
 import AnimalList from "./animal/AnimalList"
 import LocationList from './location/LocationList'
 import EmployeeList from './employee/EmployeeList'
@@ -8,9 +9,18 @@ import AnimalManager from "./animal/AnimalManager"
 import EmployeeManager from './employee/EmployeeManager';
 import LocationManager from "./location/LocationManager"
 import StudentManager from './student/StudentManager';
+import AnimalDetail from "./animal/AnimalDetails"
+import AnimalForm from "./animal/AnimalForm"
+import EmployeeForm from './employee/EmployeeForm';
+import EmployeeDetails from "./employee/EmployeeDetails"
+import LocationForm from './location/LocationForm';
+import AnimalEditForm from "./animal/AnimalEditForm"
+import Login from './authentication/Login'
 
 
 class ApplicationViews extends Component {
+ // Check if credentials are in local storage
+ isAuthenticated = () => sessionStorage.getItem("credentials") !== null
 
     state = {
         locations: [],
@@ -22,7 +32,7 @@ class ApplicationViews extends Component {
     deleteAnimal = (id) => {
         const newState = {};
         AnimalManager.deleteAnimal(id)
-        .then(AnimalManager.getAll)
+        .then(AnimalManager.all)
         .then(animals => {
             console.log("animals", animals);
             newState.animals = animals
@@ -33,7 +43,7 @@ class ApplicationViews extends Component {
     deleteEmployees = (id) => {
         const newState = {};
         EmployeeManager.deleteEmployees(id)
-            .then(EmployeeManager.getAll)
+            .then(EmployeeManager.all)
             .then(employees => {
                 console.log(employees)
                 newState.employees = employees
@@ -62,6 +72,43 @@ class ApplicationViews extends Component {
             .then(() => this.setState(newState))
     }
 
+    addAnimal = animal =>
+  AnimalManager.post(animal)
+    .then(() => AnimalManager.all())
+    .then(animals =>
+      this.setState({
+        animals: animals
+      })
+    );
+
+    addEmployee = employee =>
+  EmployeeManager.post(employee)
+    .then(() => EmployeeManager.all())
+    .then(employees =>
+      this.setState({
+        employees: employees
+      })
+    );
+
+    addLocation = location =>
+    LocationManager.post(location)
+      .then(() => LocationManager.getAll())
+      .then(locations =>
+        this.setState({
+          locations: locations
+        })
+        );
+    // update animals fetch call method
+    updateAnimal = (editedAnimalObject) => {
+        return AnimalManager.put(editedAnimalObject)
+        .then(() => AnimalManager.all())
+            .then(animals => {
+                this.props.history.push("/animals")
+                this.setState({
+            animals: animals
+          })
+        });
+      };
 
     componentDidMount() {
         const newState = {}
@@ -85,18 +132,93 @@ class ApplicationViews extends Component {
     render() {
         return (
             <React.Fragment>
-                <Route exact path="/" render={() => {
-                    return <LocationList locations={this.state.locations}
+                <Route path="/login" component={Login} />
+
+                {/* location list card route path */}
+                <Route exact path="/" render={(props) => {
+                    return <LocationList {...props} //??
+                                        locations={this.state.locations}
                                         deleteLocation={this.deleteLocation}/>
                 }} />
-                <Route path="/animals" render={() => {
-                    return <AnimalList animals={this.state.animals}
-                            deleteAnimal={this.deleteAnimal}/>
+                {/* location form route */}
+                 <Route path="/new" render={(props) => {
+                    return <LocationForm {...props}
+                                        addLocation={this.addLocation} />
+                    }} />
+                <Route exact path="/animals" render={(props) => {
+                    return <AnimalList {...props}
+                                        animals={this.state.animals}
+                                        deleteAnimal={this.deleteAnimal}/>
                 }} />
-                <Route path="/employees" render={() => {
-                    return <EmployeeList employees={this.state.employees}
-                                        deleteEmployees={this.deleteEmployees}/>
+
+
+                <Route path="/animals/new" render={(props) => {
+                    return <AnimalForm {...props}
+                       addAnimal={this.addAnimal}
+                       employees={this.state.employees} />
+}} />
+                <Route path="/animals/:animalId(\d+)" render={(props) => {
+                    // Find the animal with the id of the route parameter
+                    let animal = this.state.animals.find(animal =>
+                        animal.id === parseInt(props.match.params.animalId)
+                    )
+
+                    // If the animal wasn't found, create a default one
+                    if (!animal) {
+                        animal = { id: 404, name: "404", breed: "Animal not found" }
+                    }
+
+                    return <AnimalDetail animal={animal}
+                        deleteAnimal={this.deleteAnimal} />
                 }} />
+
+                {/* edit animal route path */}
+                <Route
+                    exact path="/animals/:animalId(\d+)"
+                    render={props => {
+                        return (
+                        <AnimalDetail
+                            {...props}
+                            deleteAnimal={this.deleteAnimal}
+                            animals={this.state.animals}
+                        />
+                        );
+                    }}/>
+                    <Route
+                    path="/animals/:animalId(\d+)/edit" render={props => {
+                        return <AnimalEditForm {...props} employees={this.state.employees} updateAnimal={this.updateAnimal}/>
+                    }} />
+
+                {/* and checks if the user loged in and takes u to employee list card route path */}
+                     <Route exact path="/employees" render={props => {
+                        if (this.isAuthenticated()) {
+                            return <EmployeeList deleteEmployee={this.deleteEmployee}
+                                                employees={this.state.employees} />
+                        } else {
+                            return <Redirect to="/login" />
+                        }
+                    }} />
+
+                <Route path="/employees/new" render={(props) => {
+                    return <EmployeeForm {...props}
+                                        addEmployee={this.addEmployee} />
+                    }} />
+
+                <Route path="/employees/:employeeId(\d+)" render={(props) => {
+                    // Find the employee with the id of the route parameter
+                    let employee = this.state.employees.find(employee =>
+                        employee.id === parseInt(props.match.params.employeeId)
+                    )
+
+                    // If the employee wasn't found, create a default one
+                    if (!employee) {
+                        employee = { id: 404, name: "404", breed: "employee not found" }
+                    }
+
+                    return <EmployeeDetails employee={employee}
+                        deleteEmployees={this.deleteEmployees} />
+                }} />
+
                  <Route path="/students" render={() => {
                     return <StudentList students={this.state.students}
                                         deleteStudent={this.deleteStudent}/>
@@ -106,4 +228,4 @@ class ApplicationViews extends Component {
     }
 }
 
-export default ApplicationViews
+export default withRouter(ApplicationViews)

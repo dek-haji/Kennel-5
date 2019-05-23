@@ -6,8 +6,8 @@ import "bootstrap/dist/css/bootstrap.min.css"
 class NavBar extends Component {
     render() {
         return (
-            <nav className="navbar navbar-light light-blue flex-md-nowrap p-0 shadow">
-                <ul className="nav nav-pills">
+            <nav  className="navbar navbar-expand-lg navbar-dark bg-dark">
+                <ul class="navbar-nav mr-auto">
                     <li className="nav-item">
                         <Link className="nav-link" to="/">Locations</Link>
                     </li>
@@ -19,6 +19,10 @@ class NavBar extends Component {
                     </li>
                     <li className="nav-item">
                         <Link className="nav-link" to="/students">classmates</Link>
+                    </li>
+
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/login">login</Link>
                     </li>
                 </ul>
             </nav>
