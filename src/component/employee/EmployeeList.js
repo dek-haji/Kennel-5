@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 import picpic from "./picpic.svg"
+import "./Employee.css"
 class EmployeeList extends Component {
     handler = (event) => {
         console.log(event)
@@ -7,6 +9,16 @@ class EmployeeList extends Component {
     }
     render() {
         return (
+            <>
+             <div className="employeeButton">
+                    <button type="button"
+                            className="btn btn-success"
+                            onClick={() => {
+                                this.props.history.push("/employees/new")}
+                            }>
+                        Register New Employee
+                    </button>
+                </div>
             <section className="employees">
                     <h1>Employees</h1>
                 {
@@ -14,12 +26,14 @@ class EmployeeList extends Component {
                     <div key={employee.id}>
                         <img src={picpic} alt = "" className="icon--employees" />
                         <p>{employee.name}</p>
-                        <button onClick={()=> { this.props.deleteEmployees(employee.id)}}>Dismis</button>
+                        <button onClick={() => { this.props.deleteEmployees(employee.id) }}>Dismis</button>
+                        <Link className="nav-link" to={`/employees/${employee.id}`}>Details</Link>
 
                 </div>
                 )
            }
-            </section>
+                </section>
+                </>
         );
     }
 }

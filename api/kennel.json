@@ -1,43 +1,46 @@
 {
   "employees": [
     {
-      "id": 3,
-      "name": "Dek haji"
+      "name": "dek haji",
+      "id": 1
     },
     {
-      "id": 4,
-      "name": "Owen Nelson"
+      "name": "ricky",
+      "id": 2
+    },
+    {
+      "name": "",
+      "id": 3
+    },
+    {
+      "name": "dek haij",
+      "id": 5
     }
   ],
   "animals": [
     {
-      "id": 4,
-      "name": "Henley"
+      "id": 2,
+      "name": "haji haji",
+      "breed": "ssxaxax",
+      "employeeId": 2
     },
     {
-      "id": 5,
-      "name": "Hennesy"
-    },
-    {
-      "id": 6,
-      "name": "Old town road"
+      "name": "new stuff",
+      "breed": "mommy",
+      "employeeId": 2,
+      "id": 3
     }
   ],
   "locations": [
     {
-      "id": 1,
-      "name": "Nashville North",
-      "address": "500 Circle Way"
-    }
-  ],
-  "students": [
-    {
-      "id": 1,
-      "name": "Dek Ahmed"
+      "name": "dek haji",
+      "location": "lolol",
+      "id": 1
     },
     {
-      "id": 2,
-      "name": "Kimmy Josh"
+      "name": "dddd",
+      "id": 2
     }
-  ]
+  ],
+  "students": []
 }
