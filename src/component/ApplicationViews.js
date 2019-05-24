@@ -9,6 +9,7 @@ import AnimalManager from "./animal/AnimalManager"
 import EmployeeManager from './employee/EmployeeManager';
 import LocationManager from "./location/LocationManager"
 import StudentManager from './student/StudentManager';
+import StudentForm from "./student/StudentForm"
 import AnimalDetail from "./animal/AnimalDetails"
 import AnimalForm from "./animal/AnimalForm"
 import EmployeeForm from './employee/EmployeeForm';
@@ -17,6 +18,7 @@ import LocationForm from './location/LocationForm';
 import AnimalEditForm from "./animal/AnimalEditForm"
 import Login from './authentication/Login'
 import LocationDetails from "./location/LocationDetails"
+import EmployeeEditForm from './employee/EmployeeEditForm';
 
 
 class ApplicationViews extends Component {
@@ -91,6 +93,17 @@ class ApplicationViews extends Component {
       })
     );
 
+    updateEmployee= (editedEmployeeObj) => {
+        return EmployeeManager.put(editedEmployeeObj)
+        .then(() => EmployeeManager.all())
+            .then(employees => {
+                this.props.history.push("/employees")
+                this.setState({
+            employees: employees
+          })
+        });
+    };
+
     addLocation = location =>
     LocationManager.post(location)
       .then(() => LocationManager.getAll())
@@ -109,7 +122,16 @@ class ApplicationViews extends Component {
             animals: animals
           })
         });
-      };
+    };
+
+    addStudent = student =>
+    StudentManager.post(student)
+      .then(() => StudentManager.all())
+      .then(students =>
+        this.setState({
+          students: students
+        })
+      );
 
     componentDidMount() {
         const newState = {}
@@ -210,7 +232,8 @@ class ApplicationViews extends Component {
                 {/* and checks if the user loged in and takes u to employee list card route path */}
                      <Route exact path="/employees" render={props => {
                         if (this.isAuthenticated()) {
-                            return <EmployeeList deleteEmployee={this.deleteEmployee}
+                            return <EmployeeList {...props}
+                                                deleteEmployee={this.deleteEmployee}
                                                 employees={this.state.employees} />
                         } else {
                             return <Redirect to="/login" />
@@ -236,11 +259,21 @@ class ApplicationViews extends Component {
                     return <EmployeeDetails employee={employee}
                         deleteEmployees={this.deleteEmployees} />
                 }} />
+                <Route
+                    path="/employees/:employeeId(\d+)/edit" render={props => {
+                        return <EmployeeEditForm {...props}  updateEmployee={this.updateEmployee}/>
+                    }} />
 
-                 <Route path="/students" render={() => {
-                    return <StudentList students={this.state.students}
+                 <Route path="/students" render={(props) => {
+                    return <StudentList {...props}
+                                        students={this.state.students}
                                         deleteStudent={this.deleteStudent}/>
                 }} />
+                 <Route path="/students/new" render={(props) => {
+                    return <StudentForm {...props}
+                    addStudent={this.addStudent}
+                       />
+                    }} />
             </React.Fragment>
         )
     }

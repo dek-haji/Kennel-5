@@ -28,6 +28,13 @@ class EmployeeList extends Component {
                         <p>{employee.name}</p>
                         <button onClick={() => { this.props.deleteEmployees(employee.id) }}>Dismis</button>
                         <Link className="nav-link" to={`/employees/${employee.id}`}>Details</Link>
+                        <button type="button"
+                        className="btn btn-info"
+                        onClick={() => {
+                            this.props.history.push(`/employees/${employee.id}/edit`);
+                        }}>
+                        Edit
+                        </button>
 
                 </div>
                 )
