@@ -31,5 +31,10 @@
       "id": 2
     }
   ],
-  "students": []
+  "students": [
+    {
+      "name": "haji",
+      "id": 1
+    }
+  ]
 }
