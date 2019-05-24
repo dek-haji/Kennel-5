@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import local from "./local.png"
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import "./Location.css"
 class LocationList extends Component {
     render() {
         return (
             <>
             <div className="locationButton">
             <button type="button"
-                    className="btn btn-success"
+                    className="btn btn-info"
                     onClick={() => {
                         this.props.history.push("/new")}
                     }>

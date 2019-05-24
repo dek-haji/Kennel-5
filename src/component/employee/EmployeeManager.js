@@ -36,5 +36,16 @@ export default Object.create(null, {
                 body: JSON.stringify(newEmployee)
             }).then(data => data.json())
         }
+    },
+    put: {
+        value: function (editEmployee) {
+            return fetch(`${remoteURL}/employees/${editEmployee.id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(editEmployee)
+            }).then(data => data.json());
+        }
     }
 })

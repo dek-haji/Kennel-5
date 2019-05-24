@@ -17,6 +17,7 @@ import LocationForm from './location/LocationForm';
 import AnimalEditForm from "./animal/AnimalEditForm"
 import Login from './authentication/Login'
 import LocationDetails from "./location/LocationDetails"
+import EmployeeEditForm from './employee/EmployeeEditForm';
 
 
 class ApplicationViews extends Component {
@@ -107,6 +108,16 @@ class ApplicationViews extends Component {
                 this.props.history.push("/animals")
                 this.setState({
             animals: animals
+          })
+        });
+    };
+    updateEmployee= (editedEmployeeObj) => {
+        return EmployeeManager.put(editedEmployeeObj)
+        .then(() => EmployeeManager.all())
+            .then(employees => {
+                this.props.history.push("/employees")
+                this.setState({
+            employees: employees
           })
         });
       };
@@ -210,7 +221,8 @@ class ApplicationViews extends Component {
                 {/* and checks if the user loged in and takes u to employee list card route path */}
                      <Route exact path="/employees" render={props => {
                         if (this.isAuthenticated()) {
-                            return <EmployeeList deleteEmployee={this.deleteEmployee}
+                            return <EmployeeList {...props}
+                                                deleteEmployee={this.deleteEmployee}
                                                 employees={this.state.employees} />
                         } else {
                             return <Redirect to="/login" />
@@ -236,6 +248,10 @@ class ApplicationViews extends Component {
                     return <EmployeeDetails employee={employee}
                         deleteEmployees={this.deleteEmployees} />
                 }} />
+                <Route
+                    path="/employees/:employeeId(\d+)/edit" render={props => {
+                        return <EmployeeEditForm {...props}  updateEmployee={this.updateEmployee}/>
+                    }} />
 
                  <Route path="/students" render={() => {
                     return <StudentList students={this.state.students}

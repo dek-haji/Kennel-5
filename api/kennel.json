@@ -1,10 +1,6 @@
 {
   "employees": [
     {
-      "name": "dek haji",
-      "id": 1
-    },
-    {
       "name": "ricky",
       "id": 2
     },
@@ -19,12 +15,6 @@
   ],
   "animals": [
     {
-      "id": 2,
-      "name": "haji haji",
-      "breed": "ssxaxax",
-      "employeeId": 2
-    },
-    {
       "name": "new stuff",
       "breed": "mommy",
       "employeeId": 2,
@@ -35,6 +25,10 @@
     {
       "name": "dek haji",
       "id": 1
+    },
+    {
+      "name": "toronto",
+      "id": 2
     }
   ],
   "students": []

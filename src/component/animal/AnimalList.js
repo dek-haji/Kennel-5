@@ -34,7 +34,7 @@ class AnimalList extends Component {
                         <button onClick={()=> {this.props.deleteAnimal(animal.id)}} >DELETE</button>
 
                         <button type="button"
-                        className="btn btn-success"
+                        className="btn btn-info"
                         onClick={() => {
                             this.props.history.push(`/animals/${animal.id}/edit`);
                         }}>
