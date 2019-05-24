@@ -1,48 +1,25 @@
-import React, { Component } from 'react';
-import { Link } from "react-router-dom";
-import picpic from "./picpic.svg"
-import "./Employee.css"
-class EmployeeList extends Component {
-    handler = (event) => {
-        console.log(event)
-        this.props.deleteEmployees(this.props.employees.id)
-    }
-    render() {
+import React, { Component } from "react"
+import EmployeeCard from "./EmployeeCard"
+
+export default class EmployeeList extends Component {
+    render () {
         return (
-            <>
-             <div className="employeeButton">
+            <React.Fragment>
+                <div className="EmployeeButton">
                     <button type="button"
-                            className="btn btn-info"
-                            onClick={() => {
-                                this.props.history.push("/employees/new")}
-                            }>
-                        Register New Employee
+                            onClick={()=> this.props.history.push("/employees/new")}
+                            className="btn btn-info">
+                        Admit Employee
                     </button>
                 </div>
-            <section className="employees">
-                    <h1>Employees</h1>
+                <section className="employees">
                 {
-                this.props.employees.map(employee =>
-                    <div key={employee.id}>
-                        <img src={picpic} alt = "" className="icon--employees" />
-                        <p>{employee.name}</p>
-                        <Link className="nav-link" to={`/employees/${employee.id}`}>Details</Link>
-                        <button onClick={() => { this.props.deleteEmployees(employee.id) }}>Dismis</button>
-                        <button type="button"
-                        className="btn btn-info"
-                        onClick={() => {
-                            this.props.history.push(`/employees/${employee.id}/edit`);
-                        }}>
-                        Edit
-                        </button>
-
-                </div>
-                )
-           }
+                    this.props.employees.map(employee =>
+                        <EmployeeCard key={employee.id} employee={employee} {...this.props} />
+                    )
+                }
                 </section>
-                </>
-        );
+            </React.Fragment>
+        )
     }
 }
-
-export default EmployeeList;

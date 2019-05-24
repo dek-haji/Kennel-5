@@ -1,52 +1,26 @@
-import React, { Component } from 'react';
-import { Link } from "react-router-dom";
-import animaal from "./animaal.png"
+import React, { Component } from "react"
 import "./Animal.css"
-import "bootstrap/dist/css/bootstrap.min.css"
+import AnimalCard from "./AnimalCard"
 
-class AnimalList extends Component {
-    handleClick = (event)=> {
-        console.log("its working", this.props.animals.id)
-        console.log(event)
-        this.props.deleteAnimal(this.props.animals.id)
-    }
-    render() {
-        console.log('this is the props in animal List',this.props)
+export default class AnimalList extends Component {
+    render () {
         return (
-            <>
-                 <div className="animalButton">
+            <React.Fragment>
+                <div className="animalButton">
                     <button type="button"
-                            className="btn btn-info"
-                            onClick={() => {
-                                this.props.history.push("/animals/new")}
-                            }>
+                            onClick={()=> this.props.history.push("/animals/new")}
+                            className="btn btn-success">
                         Admit Animal
                     </button>
                 </div>
-            <section className="animals">
-                    <h1>Animals</h1>
+                <section className="animals">
                 {
                     this.props.animals.map(animal =>
-                    <div key={animal.id}>
-                            <h5>{animal.name}</h5>
-                            <img src={animaal} alt = "" className="icon--dog" />
-                            <Link className="nav-link" to={`/animals/${animal.id}`}>Details</Link> <br/>
-                        <button onClick={()=> {this.props.deleteAnimal(animal.id)}} >DELETE</button>
-
-                        <button type="button"
-                        className="btn btn-info"
-                        onClick={() => {
-                            this.props.history.push(`/animals/${animal.id}/edit`);
-                        }}>
-                        Edit
-                        </button>
-                </div>
-                )
-           }
+                        <AnimalCard key={animal.id} animal={animal} {...this.props} />
+                    )
+                }
                 </section>
-                </>
-        );
+            </React.Fragment>
+        )
     }
 }
-
-export default AnimalList;

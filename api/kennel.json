@@ -1,34 +1,15 @@
 {
   "employees": [
     {
-      "name": "ricky",
-      "id": 2
-    },
-    {
-      "name": "",
-      "id": 3
-    },
-    {
-      "name": "dek haij",
-      "id": 5
+      "id": 1,
+      "name": "now it will work"
     }
   ],
-  "animals": [
-    {
-      "name": "asdas",
-      "breed": "",
-      "employeeId": null,
-      "id": 1
-    }
-  ],
+  "animals": [],
   "locations": [
     {
-      "name": "toronto",
-      "id": 2
-    },
-    {
-      "name": "hahahha its working",
-      "id": 3
+      "name": "tyty",
+      "id": 1
     }
   ],
   "students": [

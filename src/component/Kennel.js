@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import NavBar from "./nav/NavBar"
 import ApplicationViews from "./ApplicationViews"
 import { BrowserRouter as Router } from "react-router-dom"
+import "./Kennel.css"
 
 import "bootstrap/dist/css/bootstrap.min.css"
 
