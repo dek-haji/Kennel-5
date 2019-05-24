@@ -15,25 +15,25 @@
   ],
   "animals": [
     {
-      "name": "new stuff",
-      "breed": "mommy",
-      "employeeId": 2,
-      "id": 3
+      "name": "asdas",
+      "breed": "",
+      "employeeId": null,
+      "id": 1
     }
   ],
   "locations": [
     {
-      "name": "dek haji",
-      "id": 1
-    },
-    {
       "name": "toronto",
       "id": 2
+    },
+    {
+      "name": "hahahha its working",
+      "id": 3
     }
   ],
   "students": [
     {
-      "name": "haji",
+      "name": "fffff",
       "id": 1
     }
   ]
